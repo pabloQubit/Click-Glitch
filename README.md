@@ -3,7 +3,7 @@
 AutoClick made with electron, that can use multiprocessing to perform fast clicks.
 
 Key features: 
-  * Use more than one core of processor                  :cyclone:
+  * The program can use more than one core of processor                  :cyclone:
   * Control down and up press button delay               :alarm_clock:
   * Control the hotkey that enable/disable the macro abc :abc:
 
