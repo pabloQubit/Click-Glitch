@@ -7,10 +7,13 @@ Key features:
   * Control down and up press button delay               :alarm_clock:
   * Control the hotkey that enable/disable the macro abc :abc:
 
-### :shipit: **Installation**
+## :shipit: **Building**
+1. `npm install` -> *Installs all dependencies*
+2. `npm rebuild` -> *Rebuilds robotjs api to work in electron*
+3. `npm make`    -> *Compiles app to your platform*
 
-  Install  all  packages `npm install`  and  then  rebuild `npm rebuild`
-
+*After these steps, will be generate a installer in /dist directory.*
+Click install it, and *have fun* :sunglasses:
 ## See it working:
 ![Screenshot](https://i.ibb.co/y4DJ3BV/screen-capture.png)
 
