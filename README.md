@@ -18,6 +18,6 @@ Click install it, and *have fun* :sunglasses:
 ![Screenshot](https://i.ibb.co/y4DJ3BV/screen-capture.png)
 
 ## TO-DO
-  * Add god mode, that short the internal delay 
+  * Add 'god mode' option, that short the internal delay 
   * Add hotkey selection to disable/enable the program
-  * Improve general peformance and the code.
+  * Improve html interface code.
