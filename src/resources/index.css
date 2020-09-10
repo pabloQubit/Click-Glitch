@@ -1,0 +1,105 @@
+/* 
+	AMATEUR CSS CODE :P 
+*/ 
+@font-face { 
+	font-family: 'Dalek';
+	src: url(DalekPinpointBold.ttf);
+}
+
+body { 
+	overflow: hidden;
+}
+
+:focus {
+  outline: 0;
+  outline-color: transparent;
+  outline-style: none;
+}
+
+::selection {
+    background: transparent;
+}
+
+div.container-fluid { 
+	width: 100%;
+	height: 100%;
+
+	box-sizing: border-box;
+	padding: 15px;
+	font-family: 'Roboto', 'Arial';
+}
+
+h3 { 
+	font-family: 'Dalek';
+	font-weight: bold;
+	text-align: center;
+	color: red;
+	margin: 0px;
+	padding: 0px;
+}
+
+p, label { 
+	font-size: 12px;
+}
+
+label > input { 
+	width: 8px;
+	height: 8px;
+}
+
+p#author { 
+	font-size: 9px;
+	font-family: 'Dalek';
+
+	position: absolute;
+	top:  60%;
+	right: 10%;
+}
+
+span.clear_text { 
+	font-family: 'Times New Roman';
+	font-size:   13px;
+}
+
+input[type='text'] { 
+	width: 38px;
+	padding:3px;
+}
+
+input[type='radio'] { 
+
+	margin-bottom: 8px;
+}
+
+input[id="down_delay"] { 
+	margin-left:14px;
+}
+
+button#btn_save, button#btn_macro{ 
+	border: none;
+	padding: 10px;
+	background-color: black;
+	color: white;
+	pointer-events: all;
+}
+
+button#btn_save {
+	position: absolute;
+	bottom: 3%;
+	right:  4%;
+}
+
+button#btn_macro { 
+	position: absolute;
+	bottom: 3%;
+	right:  33%;
+}
+
+button#btn_macro:hover, button#btn_save:hover { 
+	color: green;
+	cursor: pointer;
+}
+
+button:active { 
+	padding-bottom: 8px;
+}

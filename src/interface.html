@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Click Glitch - v0.0.1</title>
+   	<meta http-equiv="Content-Security-Policy" content="style-src 'self';">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+   	<link rel="stylesheet" type="text/css" href="resources/index.css">
+  </head>
+  <body>
+  	<div class="container-fluid">
+        <h3>Destroy your enemies</h3>
+        <hr> 
+
+        <h4>Configurations:</h4>
+        <p>Down delay(ms):
+            <input type="text" pattern="\d*" maxlength="2" id="down_delay">    ms
+        </p>
+
+        <p>Release delay(ms):
+            <input type="text" pattern="\d*" maxlength="2" id="release_delay"> ms
+        </p>
+
+        <hr>
+        <p>Hotkey:
+            <input type="text" pattern="\d*" maxlength="1" id="hotkey" onkeyup="toUpper()">
+        </p>
+
+        <p><i>Use:</i></p>
+        <input type="radio" name="cores" id="one" value="single"> 
+        <label for="one">Single core</label><br>
+
+        <input type="radio" name="cores" id="two" value="dual"> 
+        <label for="two">Dual core (more cps)</label><br>
+
+        <input type="radio" name="cores" id="custom" value="custom">
+        <label for="custom">
+            Custom:
+            <input type="text" pattern="\d*" maxlength="2" id="useCores">
+        </label>
+
+        <p id="author">View my fb in: www.facebook.com/<span class="clear_text">pablo6102/</span></p>
+        <button type="button" onclick="save_cnfs()" id="btn_save" onmouseenter="change_state()">Save configs</button>
+        <button type="button" onclick="changeMacroState()" id="btn_macro">START</button>
+    </div>
+  </body>
+
+  <script src="resources/frontend.js"></script>
+</html>
