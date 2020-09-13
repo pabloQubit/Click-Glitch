@@ -1,112 +1,107 @@
-'use strict'
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-vars */
 
-const 
-	input_down = document.getElementById('down_delay'), 
-	input_rele = document.getElementById('release_delay'), 
-	input_hotk = document.getElementById('hotkey'),
-	input_cores = document.getElementById('useCores'),
+const
+  inputDown = document.getElementById('down_delay');
+const inputRele = document.getElementById('release_delay');
+const inputHotk = document.getElementById('hotkey');
+const inputCores = document.getElementById('useCores');
 
-	oneThread  		= document.getElementById('one'), 
-	twoThread  		= document.getElementById('two'), 
-	customThread	= document.getElementById('custom'),
-	saveButton  = document.getElementById('btn_save'), 
-	macroButton = document.getElementById('btn_macro'); 
+const oneThread = document.getElementById('one');
+const twoThread = document.getElementById('two');
+const customThread = document.getElementById('custom');
+const saveButton = document.getElementById('btn_save');
+const btnMacro = document.getElementById('btn_macro');
 
-window.onload = function() { 
-	// load configs
-	window.read_configs = JSON.parse(window.config.load())
-	console.log(read_configs)
-	input_down.value = window.read_configs.hold_delay
-	input_rele.value = window.read_configs.release_delay
-	input_hotk.value = window.read_configs.hotkey.toUpperCase()
+const BTN_NAME = ['Saved!', 'Save configs'];
+// BUTTON STATES
+const BTN_NORMAL = 1;
+const BTN_CHANGED = 0;
 
-	let checkRatio = (elem) => elem.setAttribute('checked', 'checked')
-	switch (window.read_configs.cores_to_use) { 
+window.onload = function loadSavedUserConfigs() {
+  // load configs
+  window.readConfigs = JSON.parse(window.config.load());
+  inputDown.value = window.readConfigs.hold_delay;
+  inputRele.value = window.readConfigs.release_delay;
+  inputHotk.value = window.readConfigs.hotkey.toUpperCase();
 
-		case 1:  checkRatio(oneThread); break;
-		case 2:  checkRatio(twoThread); break; 
-		default: checkRatio(customThread); break;
-	}
-}
+  const checkRatio = (elem) => elem.setAttribute('checked', 'checked');
+  switch (window.readConfigs.cores_to_use) {
+    case 1: checkRatio(oneThread); break;
+    case 2: checkRatio(twoThread); break;
+    default: checkRatio(customThread); break;
+  }
+};
 
 // save configs
-function save_cnfs() { 
-	let nCoresToUse = 1 
+function saveCnfs() {
+  let nCoresToUse = 1;
 
-	// verify processor cores, if custom is marked
-	if (customThread.checked) { 
+  // verify processor cores, if custom is marked
+  if (customThread.checked) {
+    try {
+      nCoresToUse = parseInt(inputCores.value, 10);
+      const avaliableCores = window.cpu.getCores();
+      const cpuModel = window.cpu.getName();
 
-		try { 
-			nCoresToUse = parseInt(input_cores.value)
-			let avaliableCores = window.cpu.getCores();
-			let cpuModel	   = window.cpu.getName(); 
+      if (nCoresToUse > avaliableCores) {
+        alert(`Sir, your ${cpuModel} has only ${avaliableCores} cores.`);
+        return;
+      }
+    } catch (err) {
+      alert('Use integer values only in custom cores.');
+    }
+  } else if (twoThread.checked) nCoresToUse = 2;
 
-			if (nCoresToUse > avaliableCores) { 
+  // verify all inputs
+  if (
+    inputDown.value === '' || inputRele.value === '' || inputHotk.value === ''
+  ) {
+    alert('Fill all inputs!');
+  } else {
+    saveButton.innerHTML = 'Saving...';
+    const objectConfig = {
 
-				alert(`Sir, your ${cpuModel} has only ${avaliableCores} cores.`)
-				return;
-			}
-		} catch (err) { 
-			alert('Use integer values only in custom cores.')
-		}
-	} else if (twoThread.checked) nCoresToUse = 2; 
+      hold_delay: inputDown.value,
+      release_delay: inputRele.value,
+      hotkey: inputHotk.value.toLowerCase(),
+      cores_to_use: nCoresToUse,
 
-	// verify all inputs 
-	if (
-		input_down.value === '' ||
-		input_rele.value === '' || 
-		input_hotk.value === ''
-		//!input_cores.disabled && input_cores.value === ''
-	) {
-		alert('Fill all inputs!')
-	} else {
+    };
 
-		saveButton.innerHTML = 'Saving...'
-		let object_config = { 
-
-			hold_delay: 	input_down.value,
-			release_delay: 	input_rele.value,
-			hotkey:         input_hotk.value.toLowerCase(),
-			cores_to_use:   nCoresToUse
-			
-		}
-
-		window.config.save(object_config);
-		setTimeout(() => { 
-
-			saveButton.innerHTML = 'Saved!'
-			alert('Restart app to apply new configs!')
-		}, 3)
-	}
+    window.config.save(objectConfig);
+    setTimeout(() => {
+      saveButton.innerHTML = 'Saved!';
+      alert('Restart app to apply new configs!');
+    }, 3);
+  }
 }
 
-function changeMacroState() { 
-	let array_input = document.querySelectorAll('input')
-	let enable = (btn_macro.textContent === 'START'); 
+function changeMacroState() {
+  const arrayInput = document.querySelectorAll('input');
+  const enable = (btnMacro.textContent === 'START');
 
-	if (window.cpu.getCores() >= input_cores.value) {
-		btn_macro.innerHTML = (enable) ? 'STOP' : 'START'; 
-		array_input.forEach((input) => { 
-			input.disabled = enable;
-			input.contentEditable = !enable;
-		})
+  if (window.cpu.getCores() >= inputCores.value) {
+    btnMacro.innerHTML = (enable) ? 'STOP' : 'START';
+    arrayInput.forEach((input) => {
+      const inputVar = input;
+      inputVar.disabled = enable;
+      inputVar.contentEditable = !enable;
+    });
 
-		window.macro.changeState()
-	} else { 
-
-		alert(`Select a number of cores less or equal than ${window.cpu.getCores()}`)
-	}
+    window.macro.changeState();
+  } else {
+    alert(`Select a number of cores less or equal than ${window.cpu.getCores()}`);
+  }
 }
 
 // LAYOUT FUNCTIONS
-function change_state() { 
-
-	if(saveButton.textContent = 'Saved!') { 
-		saveButton.innerText = "Save configs.";
-	}
+function changeState() {
+  if (saveButton.textContent === BTN_NAME[BTN_CHANGED]) {
+    saveButton.innerText = BTN_NAME[BTN_NORMAL];
+  }
 }
 
-function toUpper() { 
-
-	input_hotk.value = input_hotk.value.toUpperCase();
+function toUpper() {
+  inputHotk.value = inputHotk.value.toUpperCase();
 }

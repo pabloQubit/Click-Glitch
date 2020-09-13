@@ -1,47 +1,42 @@
-const robot = require('robotjs')
+const robot = require('robotjs');
 
-module.exports = class { 
+module.exports = class {
+  constructor(toggleButton, holdDelay, releaseDelay) {
+    this.interval = null;
+    this.click_timeout = null;
+    this.wait_timeout = null;
 
-    constructor (toggle_button, hold_delay, release_delay) { 
-        this.interval = null;
-        this.click_timeout = null;
-        this.wait_timeout  = null;
+    this.mouse_btn = toggleButton;
+    this.pressDelay = holdDelay;
+    this.getOffDelay = releaseDelay;
 
-        this.mouse_btn = toggle_button;
-        this.h_delay = hold_delay; 
-        this.r_delay = release_delay;
+    this.EXEC_DELAY = this.pressDelay + this.getOffDelay;
+  }
 
-        this.EXEC_DELAY = this.h_delay+this.r_delay;
-    }
+  giveClick(pressDelay, getOffDelay) {
+    this.click_timeout = setTimeout(() => {
+      robot.mouseToggle('down');
+      setTimeout(() => {
+        robot.mouseToggle('up');
+      }, getOffDelay);
+    }, pressDelay);
+  }
 
-    giveClick(h_delay, r_delay) { 
-        this.click_timeout = setTimeout(() => { 
+  startClickLoop() {
+    if (this.wait_timeout) clearTimeout(this.wait_timeout);
+    this.wait_timeout = null;
 
-            robot.mouseToggle('down')
-            setTimeout(() => { 
+    this.interval = setInterval(() => {
+      this.giveClick(this.pressDelay, this.getOffDelay);
+    }, this.EXEC_DELAY);
+  }
 
-                robot.mouseToggle('up')
-            }, r_delay)
-        }, h_delay)
-    }
+  stopClickLoop() {
+    if (this.interval) clearInterval(this.interval);
+    if (this.click_timeout) clearTimeout(this.click_timeout);
 
-    startClickLoop() { 
-        if (this.wait_timeout) clearTimeout(this.wait_timeout); 
-        this.wait_timeout = null; 
-        
-        this.interval = setInterval(() => { 
-
-            this.giveClick(this.h_delay, this.r_delay)
-        }, this.EXEC_DELAY)
-    }
-
-    stopClickLoop() { 
-
-        if (this.interval)      clearInterval(this.interval);
-        if (this.click_timeout) clearTimeout(this.click_timeout);
-
-        // clear instances
-        this.interval = null; 
-        this.click_timeout = null;
-    }
-}
+    // clear instances
+    this.interval = null;
+    this.click_timeout = null;
+  }
+};

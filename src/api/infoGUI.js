@@ -1,30 +1,29 @@
-const { contextBridge, ipcRenderer } = require('electron')
-const ConfigManager = require('../config/ConfigurationManager.js')
+const cpus = require('os').cpus();
+const { contextBridge, ipcRenderer } = require('electron');
+const ConfigManager = require('../config/ConfigurationManager.js');
 
-const 
-	cpus = require('os').cpus(), 
-	CPU_NAME  = cpus[0].model, 
-	CPU_CORES = cpus.length;
+const CPU_NAME = cpus[0].model;
+const CPU_CORES = cpus.length;
 
 contextBridge.exposeInMainWorld(
-	'config',
-    { 
-		load: () => 		ConfigManager.getConfigs(), 
-		save: (new_cnfs) => ConfigManager.setConfigs(new_cnfs)
-	}
+  'config',
+  {
+    load: () => ConfigManager.getConfigs(),
+    save: (newConfigs) => ConfigManager.setConfigs(newConfigs),
+  },
 );
 
 contextBridge.exposeInMainWorld(
-	'cpu',
-	{
-		getName:  () => CPU_NAME,
-		getCores: () => CPU_CORES
-	}
-)
+  'cpu',
+  {
+    getName: () => CPU_NAME,
+    getCores: () => CPU_CORES,
+  },
+);
 
 contextBridge.exposeInMainWorld(
-	'macro',
-	{
-		changeState: () => ipcRenderer.send('changeMacroState')
-	}
-)
+  'macro',
+  {
+    changeState: () => ipcRenderer.send('changeMacroState'),
+  },
+);

@@ -1,26 +1,21 @@
-const ThreadManager = require('./ThreadManager.js')
+const ThreadManager = require('./ThreadManager.js');
 
-module.exports = class { 
+module.exports = class {
+  constructor(userConfigs) {
+    this.isActive = false;
+    this.threadManager = new ThreadManager(userConfigs);
+  }
 
-    constructor (inject_cnf) { 
-
-        this.isActive = false
-        this.threadManager = new ThreadManager(inject_cnf)
+  changeState() {
+    this.isActive = !this.isActive;
+    if (this.isActive) {
+      this.threadManager.start();
+    } else {
+      this.threadManager.stop();
     }
+  }
 
-    changeState() { 
-        this.isActive = !this.isActive; 
-        if (this.isActive) { 
-
-            this.threadManager.start()
-        } else { 
-
-            this.threadManager.stop()
-        }
-    }
-
-    stopAll() { 
-        console.info('Calling threadManager to stop all threads.')
-        this.threadManager.stopAllThreads()
-    }
-}
+  stopAll() {
+    this.threadManager.stopAllThreads();
+  }
+};

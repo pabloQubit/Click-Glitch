@@ -2,26 +2,35 @@
   "name": "ClickGlitch",
   "productName": "ClickGlitch",
   "version": "0.0.1",
-  "config": {},
+  "config": {
+    "forge": "forge.config.js"
+  },
   "description": "Tool to automatize clicks",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
     "make": "electron-forge make",
-    "rebuild":"npm rebuild --runtime=electron --target=10.1.1 --disturl=https://atom.io/download/atom-shell  --abi=72"
+    "rebuild": "npm rebuild --runtime=electron --target=10.1.1 --disturl=https://atom.io/download/atom-shell  --abi=72",
+    "lint": "./node_modules/.bin/eslint .",
+    "lint:fix": "./node_modules/.bin/eslint ./src --fix"
   },
   "author": "Pablo Skurbert",
   "license": "MIT",
   "dependencies": {
+    "electron": "^10.1.1",
     "electron-squirrel-startup": "^1.0.0",
     "robotjs": "^0.6.0"
   },
   "devDependencies": {
-    "@electron-forge/cli": "6.0.0-beta.53",
     "@electron-forge/maker-deb": "6.0.0-beta.53",
-    "@electron-forge/maker-rpm": "6.0.0-beta.53",
     "@electron-forge/maker-squirrel": "6.0.0-beta.53",
-    "@electron-forge/maker-zip": "6.0.0-beta.53",
-    "electron": "^10.1.1"
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "node-gyp": "^7.1.0"
+  },
+  "engine-strict": true,
+  "engines": {
+    "node": ">=12.16.3"
   }
 }

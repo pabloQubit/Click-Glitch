@@ -1,52 +1,52 @@
-const AutoClick = require('./AutoClick.js')
-const child_process = require('child_process'
-    )
-let childProcesses = []
+const childProcess = require('child_process');
 
-const increaseBy = 45 // percentage
-const timesBy    = 1.8  // multiply factor
-module.exports = class ThreadManager { 
-    constructor (macro_cnf) { 
-        
-        // multiprocessing logic
-            let // increasing delay by +45% for each new thread
-                increase_hold = (increaseBy/100)*macro_cnf.hold_delay, 
-                increase_rele = (increaseBy/100)*macro_cnf.release_delay; 
+const childProcesses = [];
 
-            for (let i = 1; i <= macro_cnf.cores_to_use; i++) { 
-                let factor = i*timesBy;
-                childProcesses.push(
-                    child_process.fork(
-                        require.resolve('./ChildThread.js'), 
-                        { 
-                            env: { HOLD_DELAY:   (macro_cnf.hold_delay+increase_hold)*factor,
-                                   RELEASE_DELAY:(macro_cnf.release_delay+increase_rele)*factor }
-                        }
-                    )
-                )
+const increaseBy = 45; // percentage
+const timesBy = 1.8; // multiply factor
+module.exports = class ThreadManager {
+  constructor(userConfigs) {
+    // multiprocessing logic
+    // increasing delay by +45% for each new thread
+    const increaseHold = (increaseBy / 100) * userConfigs.hold_delay;
+    const increaseRelease = (increaseBy / 100) * userConfigs.release_delay;
 
-                childProcesses[(i-1)].on('exit', (code) => { 
-                    console.log(`[debug] Thread exited.`)
-                })
-            }
-    }
+    for (let i = 1; i <= userConfigs.cores_to_use; i += 1) {
+      const factor = i * timesBy;
+      childProcesses.push(
+        childProcess.fork(
+          require.resolve('./ChildThread.js'),
+          {
+            env: {
+              HOLD_DELAY: (userConfigs.hold_delay + increaseHold) * factor,
+              RELEASE_DELAY: (userConfigs.release_delay + increaseRelease) * factor,
+            },
+          },
+        ),
+      );
 
-    start() { 
-        this.sendMessageToChilds('start-clicking')
-    }
+      // TODO: Implement winston module, to log the state of the child processes
+      childProcesses[(i - 1)].on('exit', () => {
 
-    stop() { 
-        this.sendMessageToChilds('stop-clicking')
-    }
+      });
 
-    stopAllThreads() { 
-        this.sendMessageToChilds('shutdown')
-    }
-
-    sendMessageToChilds(msg) { 
-        for (let i = 0; i < childProcesses.length; i++) { 
-
-            childProcesses[i].send(msg);
+      this.sendMsg = function sendMessageToChildProcesses(msg) {
+        for (let c = 0; c < childProcesses.length; c += 1) {
+          childProcesses[c].send(msg);
         }
+      };
     }
-}
+  }
+
+  start() {
+    this.sendMsg('start-clicking');
+  }
+
+  stop() {
+    this.sendMsg('stop-clicking');
+  }
+
+  stopAllThreads() {
+    this.sendMsg('shutdown');
+  }
+};
