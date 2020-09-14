@@ -4,6 +4,7 @@ const {
   ipcMain,
 } = require('electron');
 
+process.env.VERSION = '0.0.2';
 const eSquirrel = require('electron-squirrel-startup');
 
 if (eSquirrel) app.quit();
@@ -22,7 +23,7 @@ const createWindow = () => {
     width: 400,
     height: 375,
     resizable: false,
-    maximizable: false,
+    maximizable: true,
     show: false,
     autoHideMenuBar: true,
     webPreferences: {
@@ -40,6 +41,11 @@ const createWindow = () => {
 // user clicked in START or STOP button
 ipcMain.on('changeMacroState', () => {
   isMacroEnabled = !isMacroEnabled;
+});
+
+ipcMain.on('getVersion', (event) => {
+  const interProcessEvent = event;
+  interProcessEvent.returnValue = process.env.VERSION;
 });
 
 app.whenReady().then(() => {
@@ -62,9 +68,6 @@ app.on('ready', createWindow);
 app.on('will-quit', () => {
   macroMgr.stopAll();
   globalShortcut.unregister(CNF_DATA.hotkey);
-});
-
-app.on('window-all-closed', () => {
   app.quit();
 });
 

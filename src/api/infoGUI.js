@@ -27,3 +27,10 @@ contextBridge.exposeInMainWorld(
     changeState: () => ipcRenderer.send('changeMacroState'),
   },
 );
+
+contextBridge.exposeInMainWorld(
+  'app',
+  {
+    getVersion: () => ipcRenderer.sendSync('getVersion'),
+  },
+);

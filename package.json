@@ -8,8 +8,8 @@
   "description": "Tool to automatize clicks",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
-    "make": "electron-forge make",
+    "start": "./node_modules/.bin/electron-forge start",
+    "make": "./node_modules/.bin/electron-forge make",
     "rebuild": "npm rebuild --runtime=electron --target=10.1.1 --disturl=https://atom.io/download/atom-shell  --abi=72",
     "lint": "./node_modules/.bin/eslint .",
     "lint:fix": "./node_modules/.bin/eslint ./src --fix"
@@ -24,6 +24,8 @@
   "devDependencies": {
     "@electron-forge/maker-deb": "6.0.0-beta.53",
     "@electron-forge/maker-squirrel": "6.0.0-beta.53",
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "8.2.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
