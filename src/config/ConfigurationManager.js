@@ -1,8 +1,10 @@
+const os = require('os');
 const path = require('path');
 const fs = require('fs');
 const Configuration = require('./Configuration.js');
 
-const DEFAULT_PATH = path.join(__dirname, '../../config.dat');
+const FILE_NAME = '.clickglitch_config';
+const DEFAULT_PATH = path.join(os.homedir(), FILE_NAME);
 
 module.exports = class CnfMrg {
   // load from file 'config.json'
