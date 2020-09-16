@@ -24,7 +24,9 @@ module.exports = class CnfMrg {
     const newConfigs = JSON.stringify(updateTo);
 
     if (newConfigs !== oldConfigs) {
-      fs.unlinkSync(DEFAULT_PATH);
+      try {
+        fs.unlinkSync(DEFAULT_PATH);
+      } catch (err) { /* todo */ }
       fs.writeFile(DEFAULT_PATH, JSON.stringify(newConfigs), (err) => {
         if (err) throw err;
       });

@@ -41,8 +41,13 @@
             <input type="text" pattern="\d*" maxlength="2" id="useCores">
         </label>
 
+        <div id="godModeCheckbox">
+          <input type="checkbox" name="god" id="god_mode" value="god">
+          <label for="god_mode">Enable god mode</label>
+        </div>
+
         <p id="author">View my fb in: www.facebook.com/<span class="clear_text">pablo6102/</span></p>
-        <button type="button" onclick="saveCnfs()" id="btn_save" onmouseenter="change_state()">Save configs</button>
+        <button type="button" onclick="saveCnfs()" id="btn_save" onmouseenter="changeState()">Save configs</button>
         <button type="button" onclick="changeMacroState()" id="btn_macro">START</button>
     </div>
   </body>

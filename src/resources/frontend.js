@@ -13,6 +13,7 @@ const customThread = document.getElementById('custom');
 const saveButton = document.getElementById('btn_save');
 const btnMacro = document.getElementById('btn_macro');
 
+const radioGodMode = document.getElementById('god_mode');
 const BTN_NAME = ['Saved!', 'Save configs'];
 // BUTTON STATES
 const BTN_NORMAL = 1;
@@ -24,12 +25,15 @@ window.onload = function loadSavedUserConfigs() {
   inputDown.value = window.readConfigs.hold_delay;
   inputRele.value = window.readConfigs.release_delay;
   inputHotk.value = window.readConfigs.hotkey.toUpperCase();
-
+  radioGodMode.checked = window.readConfigs.god_mode;
   const checkRatio = (elem) => elem.setAttribute('checked', 'checked');
   switch (window.readConfigs.cores_to_use) {
     case 1: checkRatio(oneThread); break;
     case 2: checkRatio(twoThread); break;
-    default: checkRatio(customThread); break;
+    default:
+      checkRatio(customThread);
+      inputCores.value = window.readConfigs.cores_to_use;
+      break;
   }
 };
 
@@ -66,7 +70,7 @@ function saveCnfs() {
       release_delay: inputRele.value,
       hotkey: inputHotk.value.toLowerCase(),
       cores_to_use: nCoresToUse,
-
+      god_mode: radioGodMode.checked,
     };
 
     window.config.save(objectConfig);

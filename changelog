@@ -1,0 +1,15 @@
+ClickGlitch v0.0.1: 
+
+	* Mouse down and up delay settings
+	* Custom number of cores
+	* Needs to restart app to apply new configs
+
+ClickGlitch v0.0.2: 
+
+	* Fix App doesn't save config file in current directory
+	* Added robotjs api dependencies to generate .deb file
+
+ClickGlitch v0.0.3: 
+	
+	* Switch the code to airbnb standard
+	* Added 'god_mode' option

@@ -4,7 +4,7 @@ const {
   ipcMain,
 } = require('electron');
 
-process.env.VERSION = '0.0.2';
+process.env.VERSION = '0.0.3';
 const eSquirrel = require('electron-squirrel-startup');
 
 if (eSquirrel) app.quit();

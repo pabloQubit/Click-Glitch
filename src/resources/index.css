@@ -103,3 +103,10 @@ button#btn_macro:hover, button#btn_save:hover {
 button:active { 
 	padding-bottom: 8px;
 }
+
+div#godModeCheckbox { 
+	position: absolute;
+
+	right: 15%;
+	bottom:24%;
+}

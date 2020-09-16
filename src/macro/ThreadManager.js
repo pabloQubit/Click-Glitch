@@ -3,11 +3,12 @@ const childProcess = require('child_process');
 const childProcesses = [];
 
 const increaseBy = 45; // percentage
-const timesBy = 1.8; // multiply factor
+let timesBy = 1.8; // multiply factor
 module.exports = class ThreadManager {
   constructor(userConfigs) {
     // multiprocessing logic
     // increasing delay by +45% for each new thread
+    if (userConfigs.god_mode) timesBy = 0.7;
     const increaseHold = (increaseBy / 100) * userConfigs.hold_delay;
     const increaseRelease = (increaseBy / 100) * userConfigs.release_delay;
 
