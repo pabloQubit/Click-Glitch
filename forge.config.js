@@ -32,7 +32,7 @@ module.exports = {
           priority: 'optional',
           productDescription: 'Multithread autoclicker, personalize how much cores do you wanna use to perform clicks, select down delay and up delay of mouse button!',
           productName: 'Click Glitch',
-          version: '0.0.1',
+          version: process.env.VERSION,
           depends: ['libx11-dev', 'libxtst-dev', 'libpng++-dev'],
         },
       },
