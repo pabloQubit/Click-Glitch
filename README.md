@@ -12,7 +12,7 @@ Key features:
 2. `npm rebuild` -> *Rebuilds robotjs api to work in electron*
 3. `npm make`    -> *Compiles app to your platform*
 
-*After these steps, will be generate a installer in /dist directory.*
+*After these steps, will be generate a installer in /out directory.*
 Click install it, and *have fun* :sunglasses:
 ## Gui screenshot:
 ![Screenshot](https://i.ibb.co/309JQ51/Sele-o-001.png)
