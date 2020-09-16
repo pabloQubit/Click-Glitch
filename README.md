@@ -18,6 +18,6 @@ Click install it, and *have fun* :sunglasses:
 ![Screenshot](https://i.ibb.co/309JQ51/Sele-o-001.png)
 
 ## TO-DO
-  * Add 'god mode' option, that short the internal delay 
+  * Add 'god mode' option, that short the internal delay :heavy_check_mark:
   * Add hotkey selection to disable/enable the program
   * Improve html interface code.
