@@ -37,5 +37,19 @@ module.exports = {
         },
       },
     },
+    {
+      name: '@electron-forge/maker-rpm',
+      config: {
+        maintainer: 'Pablo Skubert',
+        homepage: 'https://www.facebook.com/pablo6102',
+        genericName: 'AutoClick',
+        icon: './assets/package_icon.jpg',
+        license: 'mit',
+        name: 'ClickGlitch',
+        productDescription: 'Multithread autoclicker, personalize how much cores do you wanna use to perform clicks, select down delay and up delay of mouse button!',
+        productName: 'ClickGlitch',
+        version: process.env.VERSION,
+      },
+    },
   ],
 };
