@@ -15,7 +15,7 @@ Key features:
 *After these steps, will be generate a installer in /dist directory.*
 Click install it, and *have fun* :sunglasses:
 ## Gui screenshot:
-![Screenshot](https://i.ibb.co/y4DJ3BV/screen-capture.png)
+![Screenshot](https://i.ibb.co/309JQ51/Sele-o-001.png)
 
 ## TO-DO
   * Add 'god mode' option, that short the internal delay 
