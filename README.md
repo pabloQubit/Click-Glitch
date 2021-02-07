@@ -5,7 +5,8 @@ AutoClick made with electron, that can use multiprocessing to perform fast click
 Key features: 
   * The program can use more than one core of processor                  :cyclone:
   * Control down and up press button delay               :alarm_clock:
-  * Control the hotkey that enable/disable the macro abc :abc:
+  * Control the hotkey that enable/disable the macro :abc:
+  * Save your preferences :wrench: 
 
 ## Download prebuilt binary from /dist dir or build it:
 ## :shipit: **Building**
@@ -20,4 +21,4 @@ Click install it, and *have fun* :sunglasses:
 
 
 ## TO-DO
-  * Add 'god mode' option, that short the internal delay :heavy_check_mark:
+  * Add 'god mode' option, that short the internal delay :heavy_check_mark: 
